@@ -1,0 +1,764 @@
+
+        h1 {
+            color: #25283D;
+        }
+
+        h2 {
+            color: #2d7d9e;
+        }
+
+/* Map features*/
+
+    #tooltip_hover {
+        position: absolute;
+        height: auto;
+        padding: 10px;
+        background-color: white;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        pointer-events: none;
+        margin: 10px;
+        font-size: 16px;
+        text-align: left;
+        line-height: 22px;
+
+    }
+
+        #tooltip_hover.hidden {
+            display: none;
+        }
+
+        #instruction.hidden {
+            display: none;
+        }
+        .mapblock {
+
+            background: #f9f9f9;
+     /*       min-height: 700px;*/
+
+        }
+
+        .maptitle {
+            color: #2d7d9e;
+        }
+
+        svg {
+            background: none;
+        }
+
+        .map_svg {
+            background: #e6f9ff;
+    /*        display: inline-block;*/
+            overflow: hidden;
+/*            position: absolute;*/
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .background {
+            fill: none;
+            display: none;
+            pointer-events: all;
+        }
+
+        .boroughs {
+              fill: none;
+            }
+
+        .boroughs path:hover, path.highlighted {
+            fill: white;
+        }
+
+
+        .LAD13CD {
+            fill: #e6e6e6;
+            stroke-width: 0.7px;
+            stroke: white;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .LAD13CD.E09000002, .LAD13CD.E09000003, .LAD13CD.E09000004, .LAD13CD.E09000005, .LAD13CD.E09000006, .LAD13CD.E09000007, .LAD13CD.E09000001, .LAD13CD.E09000008, .LAD13CD.E09000009, .LAD13CD.E09000010, .LAD13CD.E09000011, .LAD13CD.E09000012, .LAD13CD.E09000013, .LAD13CD.E09000014, .LAD13CD.E09000015, .LAD13CD.E09000016, .LAD13CD.E09000017, .LAD13CD.E09000018, .LAD13CD.E09000019, .LAD13CD.E09000020, .LAD13CD.E09000021, .LAD13CD.E09000022, .LAD13CD.E09000023, .LAD13CD.E09000024, .LAD13CD.E09000025, .LAD13CD.E09000026, .LAD13CD.E09000027, .LAD13CD.E09000028, .LAD13CD.E09000029, .LAD13CD.E09000030, .LAD13CD.E09000031, .LAD13CD.E09000032, .LAD13CD.E09000033 {
+            fill: #cccccc;
+        }
+
+        .routesin {
+            stroke-width: 1.5px;
+            pointer-events: none;
+            stroke: #b6006c;
+            fill: none;
+        }
+
+        .arrowIn {
+            stroke: black;
+            pointer-events: none;
+            fill: #b6006c;
+        }
+
+        .routesout {
+            stroke-width: 1.5px;
+            stroke: #2D7D9E;
+    /*        stroke-dasharray: 4,4;*/
+            pointer-events: none;
+            fill: none;
+        }
+
+        .arrowOut {
+            fill: #2D7D9E;
+            stroke: black;
+            pointer-events: none;
+        }
+
+        .circle_destinations {
+            opacity: 1;
+            fill: #2D7D9E;
+            pointer-events: none;
+        }
+
+        .origin_circles {
+            opacity: 1;
+            fill: #b6006c;
+            pointer-events: none;
+        }
+
+        .rectangle {
+            opacity: 0.3;
+            fill: #b6006c;
+            pointer-events: none;
+
+        }
+
+        .rectangleLabel {
+            position: absolute;
+            opacity: 1;
+            font-size: 10px;
+            text-anchor: start;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 100;
+            fill: white;
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .boroughName {
+            font-size: 20px;
+            text-align: left;
+            line-height: 24px;
+            font-color: #444444;
+            pointer-events: none;
+        }
+
+        .arrow {
+            width: 10px;
+            height: 10px;
+        }
+        .axis path,
+        .axis line {
+            fill: none;
+            display:none;
+            stroke: rgba(102,140,77,1);
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            fill: black;
+            font-size: 11px;
+        }
+
+        .tick line {
+            stroke: rgba(102,140,77,1);
+        }
+
+        .tick {
+            display: none;
+            font-size: 10px;
+            color: rgba(102,140,77,1);
+        }
+
+        .placeLabelOrigin, .placeLabelOrigin.text {
+            position: absolute;
+            text-align: center;
+            opacity: 1;
+            font-size: 10px;
+            font-weight: 500;
+            text-anchor: middle;
+            fill: #b6006c;
+            pointer-events: none;
+            }
+
+        .placeLabelDeparture, .placeLabelDeparture.text {
+            position: absolute;
+            text-align: center;
+            opacity: 1;
+            font-size: 10px;
+            font-weight: 500;
+            text-anchor: middle;
+            fill: #2D7D9E;
+            pointer-events: none;
+            }
+
+        .circleLabel, .circleLabel.text {
+            position: absolute;
+            text-align: center;
+            opacity: 1;
+            font-size: 10px;
+            font-weight: 500;
+            text-anchor: middle;
+            fill: white;
+            pointer-events: none;
+            }
+
+        .uk-button {
+            text-shadow: none;
+            padding: 6px;
+            border-color: rgba(0, 0, 0, 0.16);
+        }
+
+        .uk-navbar {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.16);
+            z-index: 9999;
+            font-size: 15px;
+            font-family: 'Lato', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.025em;
+            line-height: 1.75em;
+            }
+
+        .uk-offcanvas-bar {
+            background: #ffffff;
+        }
+
+        .uk-navbar-attached {
+            background: #ffffff;
+        }
+        .uk-nav-offcanvas>li>a {
+            color: #444444;
+            padding: 10px 15px;
+            box-shadow: none;
+            text-shadow: none;
+            border-top: 1px solid rgba(229, 229, 229,.3);
+        }
+/*        change hover colour background and text color*/
+        .uk-nav-offcanvas>.uk-open>a, html:not(.uk-touch) .uk-nav-offcanvas>li>a:focus, html:not(.uk-touch) .uk-nav-offcanvas>li>a:hover {
+            background: none;
+            color: #e5e5e5;
+            outline: 0;
+        }
+
+        .uk-offcanvas-bar:after {
+            box-shadow: none;
+        }
+            /* Nav */
+
+        #exitnav {
+            position: fixed;
+            top: 35%;
+            left: 86%;
+            z-index: 1000;
+            width: 14%;
+            height: 2.4em;
+            line-height: 1.2em;
+            padding-top: 10px;
+            text-align: center;
+            font-weight: 500;
+            text-transform: uppercase;
+            background: #d8de3a;
+            transform: rotate(90deg);
+            transform-origin: right top 0;
+            font-size: 18px;
+            color: #444444;
+        }
+
+        #exitnav:hover,
+        #exitnav:focus {
+            background-color: #bec421;
+            border-color: rgba(0, 0, 0, 0.16);
+        }
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //showInfoAll mouseover: ALL ROUTES SUMMARY - TEXT. Each number has it's own id and color//
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*@media (max-width: 1219px) {*/
+    /*768px*/
+@media (max-width: 767px) {
+        
+    /*/////Infowindow CSS /////////////////////////////////////////////*/
+
+        .tooltip_text {
+            font-size: 12px;
+            line-height: 16px;
+            color: #25283D;
+        }
+
+        .tooltip_heading {
+            font-size: 26px;
+            font-weight: 500;
+            line-height: 30px;
+            color: #25283D;
+        }
+
+        #allH1 {
+            color: #ffa902;
+            font-size: 20px;
+            padding-top: 5px;
+            font-weight: 500;
+        }
+
+        #arrivingH1 {
+            color: #b6006c;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        #leavingH1 {
+            color: #2D7D9E;
+            font-size: 20px;
+            line-height: 20px;
+            font-weight: 500;
+        }
+
+        #spaces {
+            color: #25283D;
+            font-size: 16px;
+            line-height: 18px;
+            font-weight: 500;
+        }
+
+        #helplinecalls {
+            color: #25283D;
+            font-size: 16px;
+            line-height: 18px;
+            font-weight: 500;
+        }
+
+        #arriving {
+            color: #b6006c;
+            font-size: 16px;
+            line-height: 18px;
+            font-weight: 500;
+        }
+
+
+        #leaving {
+            color: #2D7D9E;
+            font-size: 16px;
+            line-height: 18px;
+            font-weight: 500;
+        }
+
+
+        #astrix {
+            line-height: 15px;
+            font-size: 10px;
+
+        }
+        #astrix2 {
+            line-height: 15px;
+            font-size: 10px;
+        }
+
+        #leavingAstrix {
+            color: #2D7D9E;
+            font-size: 16px;
+        }
+
+        #arrivingAstrix {
+            color: #b6006c;
+            font-size: 16px;
+        }
+
+        #in {
+            font-color: #b6006c;
+            fill: #b6006c;
+        }
+
+        .tooltip_text_totalRefuge {
+            font-size: 20px;
+            line-height: 35px;
+            color: #2D7D9E;
+        }
+
+        .chart_text {
+            background: none;
+            font-size: 14px;
+            line-height: 22px;
+        }
+
+        .uk-button {
+            font-size: 14px;
+        }
+
+
+}
+
+@media (min-width: 768px) {
+
+        .tooltip_text {
+            font-size: 12px;
+            line-height: 18px;
+            color: #25283D;
+        }
+
+        .tooltip_heading {
+            font-size: 26px;
+            font-weight: 500;
+            line-height: 30px;
+            color: #25283D;
+        }
+
+        #arrivingH1 {
+            color: #b6006c;
+            font-size: 20px;
+            line-height: 30px;
+            font-weight: 500;
+        }
+
+        #leavingH1 {
+            color: #2D7D9E;
+            font-size: 20px;
+            line-height: 30px;
+            font-weight: 500;
+
+        }
+
+        #allH1 {
+            color: #ffa902;
+            font-size: 20px;
+            line-height: 30px;
+            padding-top: 15px;
+            font-weight: 500;
+        }
+
+        #spaces {
+            color: #25283D;
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 500;
+        }
+
+
+        #helplinecalls {
+            color: #25283D;
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 500;
+        }
+
+        #arriving {
+            color: #b6006c;
+            font-size: 16px;
+            line-height: 20px;
+            font-weight: 500;
+        }
+
+
+        #leaving {
+            color: #2D7D9E;
+            line-height: 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+
+        #astrix {
+            line-height: 15px;
+            font-size: 10px;
+        }
+        #astrix2 {
+            line-height: 15px;
+            font-size: 10px;
+        }
+
+        #leavingAstrix {
+            color: #2D7D9E;
+            font-size: 16px;
+        }
+
+        #arrivingAstrix {
+            color: #b6006c;
+            font-size: 16px;
+        }
+
+        #in {
+            font-color: #b6006c;
+            fill: #b6006c;
+        }
+
+        .tooltip_text_totalRefuge {
+            font-size: 20px;
+            line-height: 35px;
+            color: #2D7D9E;
+        }
+
+        .chart_text {
+            background: none;
+            font-size: 14px;
+            line-height: 22px;
+        }
+
+        .uk-button {
+            text-shadow: none;
+            padding: 6px;
+            border-color: rgba(0, 0, 0, 0.16);
+            font-size: 16px;
+        }
+}
+@media (min-width: 1024px) {
+
+
+        .tooltip_text {
+            font-size: 16px;
+            line-height: 22px;
+            color: #25283D;
+        }
+
+        .tooltip_heading {
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 45px;
+            color: #25283D;
+        }
+
+        #arrivingH1 {
+            color: #b6006c;
+            font-size: 30px;
+            font-weight: 500;
+        }
+
+        #leavingH1 {
+            color: #2D7D9E;
+            font-size: 30px;
+            font-weight: 500;
+
+        }
+
+        #allH1 {
+            color: #ffa902;
+            font-size: 30px;
+            font-weight: 500;
+
+        }
+
+
+        #spaces {
+            color: #25283D;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+
+        #helplinecalls {
+            color: #25283D;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        #arriving {
+            color: #b6006c;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+
+        #leaving {
+            color: #2D7D9E;
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+
+        #astrix {
+            line-height: 15px;
+            font-size: 12px;
+        }
+        #astrix2 {
+            line-height: 15px;
+            font-size: 12px;
+        }
+
+        #leavingAstrix {
+            color: #2D7D9E;
+            font-size: 20px;
+        }
+
+        #arrivingAstrix {
+            color: #b6006c;
+            font-size: 20px;
+        }
+
+        #in {
+            font-color: #b6006c;
+            fill: #b6006c;
+        }
+
+        .tooltip_text_totalRefuge {
+            font-size: 24px;
+            line-height: 35px;
+            color: #2D7D9E;
+        }
+
+        .chart_text {
+            background: none;
+            font-size: 16px;
+            line-height: 22px;
+        }
+}
+
+/* Large screen and bigger */
+
+@media (min-width: 1366px) {
+
+        .tooltip_text {
+            font-size: 20px;
+            line-height: 34px;
+            color: #25283D;
+        }
+
+        .tooltip_heading {
+            font-size: 50px;
+            font-weight: 500;
+            line-height: 80px;
+            padding-top: 30px; 
+            color: #25283D;
+        }
+
+        #spaces {
+            color: #25283D;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+
+        #helplinecalls {
+            color: #25283D;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        #arrivingH1 {
+            color: #b6006c;
+            font-size: 34px;
+            line-height: 70px;
+            font-weight: 500;
+        }
+
+        #leavingH1 {
+            color: #2D7D9E;
+            font-size: 34px;
+            line-height: 70px;
+            font-weight: 500;
+        }
+
+        #allH1 {
+            color: #ffa902;
+            font-size: 34px;
+            line-height: 70px;
+            padding-top: 15px;
+            font-weight: 500;
+        }
+
+        #arriving {
+            color: #b6006c;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        #leaving {
+            color: #2D7D9E;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+
+        #astrix {
+            line-height: 15px;
+            font-size: 12px;
+        }
+        #astrix2 {
+            line-height: 15px;
+            font-size: 12px;
+        }
+
+        #leavingAstrix {
+            color: #2D7D9E;
+            font-size: 20px;
+        }
+
+        #arrivingAstrix {
+            color: #b6006c;
+            font-size: 20px;
+        }
+
+        #in {
+            font-color: #b6006c;
+            fill: #b6006c;
+        }
+
+        .tooltip_text_totalRefuge {
+            font-size: 24px;
+            line-height: 35px;
+            color: #2D7D9E;
+        }
+
+        .instruction_text {
+            font-size: 18px;
+            line-height: 30px;
+  /*          font-family: 'Open Sans', sans-serif;*/
+        }
+
+        .chart_text {
+            font-size: 500 16px;
+            line-height: 20px;
+            background: none;
+ /*           font-family: 'Open Sans', sans-serif;*/
+        }
+}
+
+
+
+
+
+
+/*Noto Sans*/
+
+/*
+
+// currrently using
+Header and helpline calls #ffa902
+
+
+
+    Women's Aid website colours official
+    Green (lime)  #d8de3a; For exit button
+
+    Pink (muted)   #b6006c; For routes in
+    Teal (muted)   #2d7d9e; For routes out
+
+    Pink (bright) #ec008b; Not yet used
+    Blue (bright)  #71cee8; River Thames on Map
+
+    Green (darkish) #00a550;
+
+    Orange (bright) #ff901d;
+    
+    Also found on their website:;
+    Orange yellowey #ffa902;
+    Grey (dark) #444444 for headings
+    Grey light #e5e5e5 for boader colours
+    Cream #fcfaea;
+
+    Another blue #96bece; Used this for background of main block map
+    #ffa902 - gold yellow
+    To try:
+    #9DD9D2 - light blue
+    #25283D - dark purpley blue
+    #Dcc48e - Pale gold 
+
+*/

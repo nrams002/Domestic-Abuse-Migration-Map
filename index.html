@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Domestic Abuse Migration</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content=" by Nissa Ramsay. August 2016." />
+    <meta name="Keywords" content="Data visualisation, map, domestic abuse, d3, Women's Aid, migration, London" />
+    <link rel="shortcut icon" href="img/londonthumbnail.jpg"/>
+    <meta name="author" content="Nissa Ramsay" />
+
+
+
+    <script type="text/javascript" src="lib/jquery-3.0.0.min.js"></script>
+
+<!-- uikit -->
+<!-- Note, load jquery first, always include a css and js for each component used, .min and .almost-flat -->
+
+    <!-- CSS -->
+    <link type="text/css" rel="stylesheet" href="lib/uikit-2.26.3/css/uikit.almost-flat.css" />
+    <link type="text/css" rel="stylesheet" href="lib/uikit-2.26.3/css/components/slidenav.almost-flat.min.css" />
+    <link type="text/css" rel="stylesheet" href="lib/uikit-2.26.3/css/components/slider.almost-flat.min.css" />
+    <link type="text/css" rel="stylesheet" href="lib/uikit-2.26.3/css/components/dotnav.almost-flat.css" />
+    <link type="text/css" rel="stylesheet" href="lib/main.css" />
+
+
+
+    <!-- JS -->
+    <script type="text/javascript" src="lib/uikit-2.26.3/js/uikit.min.js"></script>
+    <script type="text/javascript" src="lib/uikit-2.26.3/js/components/sticky.min.js"></script>
+    <script type="text/javascript" src="lib/uikit-2.26.3/js/core/modal.min.js"></script>
+
+    <script type="text/javascript" src="lib/uikit-2.26.3/js/components/grid.min.js"></script>
+    <script type="text/javascript" src="lib/uikit-2.26.3/js/components/lightbox.min.js"></script>
+    <script type="text/javascript" src="lib/uikit-2.26.3/js/components/slider.min.js"></script>
+    <script type="text/javascript" src="lib/uikit-2.26.3/js/components/slideshow.min.js"></script>
+    <script type="text/javascript" src="lib/uikit-2.26.3/js/components/slideshow-fx.min.js"></script>
+<!-- D3 scripts -->
+    <script type="text/javascript" src='lib/d3-4.1.0/d3.min.js' charset="utf-8"></script>
+    <script type="text/javascript" src='lib/d3-4.1.0/d3.v3.min.js' charset="utf-8"></script>
+
+    <script type="text/javascript" src='lib/topojson.v1.min.js'></script>
+    <script type="text/javascript" src='lib/queue.v1.min.js'></script>
+
+</head>
+<body>
+<!-- Navigation menu - for large screen -->
+    <nav class="uk-navbar" data-uk-sticky="{clsactive: 'uk-navbar-attached', animation: 'uk-animation-slide-top'}">
+        <div class="uk-navbar-flip">
+            <ul class="uk-navbar-nav uk-hidden-small" data-uk-scrollspy-nav="{closest: 'li', smoothscroll: {offset: 50}}">
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#mapjourneys">Domestic Abuse Migration Map</a></li>
+                <li><a href="#datadefinitions">Map definitions</a></li>
+                <li><a href="#faqs">Frequently Asked Questions</a></li>
+                <li><a href="#findings">Analysis</a></li>
+                <li><a href="about.html" target="blank">About</a></li>
+            </ul>
+        <a href="#offcanvas" class="uk-navbar-toggle uk-hidden-medium uk-hidden-large" data-uk-offcanvas></a>
+
+     </div>
+    </nav>
+
+ <!--    Navigation menu - for small screen -->
+
+            <div id="offcanvas" class="uk-offcanvas">
+            <div class="uk-offcanvas-bar">
+                <ul class="uk-nav uk-nav-offcanvas" >
+                    <li><a href="#intro">Introduction</a></li>
+                    <li><a href="#mapjourneys">Domestic Abuse Migration Map</a></li>
+                    <li><a href="#datadefinitions">Map definitions</a></li>
+                    <li><a href="#faqs">Frequently Asked Questions</a></li>
+                    <li><a href="#findings">Analysis</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+        </div>
+
+<!--  Navigation menu for exit this site -->
+    <a id="exitnav" data-uk-sticky="{animation: 'uk-animation-slide-top'}" href="http://www.bbc.co.uk/">EXIT SITE</a>
+
+
+
+        <div class="uk-panel uk-width-1-1 uk-container-center">
+<!--             <img src="img/houses5.jpg" width="100%"> -->
+            <img src="img/trainline.jpg" width="100%" style="min-height: 400px;">
+             <figcaption>
+
+                <div class="uk-overlay-panel uk-overlay-backgound uk-flex uk-flex-center uk-flex-middle uk-text-center">
+
+                <div>
+                   
+                    <h1>Domestic Abuse Migration Map</h1>
+                    <h2>Journeys seeking refuge in London, 2015-16</h2>
+                    <!-- <h3 id="authorheading">Nissa Ramsay, August 2016</h3> -->
+
+                    <h3> <a href="#intro" data-uk-smooth-scroll><i class="uk-icon-chevron-circle-down uk-icon-large"></i></a></h3>
+
+                </div>
+
+
+            </figcaption>
+
+        </div>
+
+       <div id="intro" class="uk-container uk-container-center uk-width-medium-7-10 uk-width-small-1-1 uk-margin-top">
+
+        <div class="uk-container uk-width-medium-6-10 uk-width-small-1-1 uk-margin-large-top uk-margin-large-bottom uk-container-center">
+            <div class="uk-panel uk-panel-box" style="background: #d8de3a;">
+                <p>If you need urgent help related to domestic abuse please call the National Domestic Violence helpline on <b>0808 2000 247</b> and <a href="http://www.bbc.co.uk/">click here</a> to leave this site.</p>
+            </div>
+        </div>
+            <hr>
+            <h1 class="uk-text-center uk-margin-large-top">Introduction</h1>
+            </hr>
+            <p class="uk-margin-large-top">
+                
+                This project visualises the 1165 journeys women made to seek refuge in London between 1st April 2015 and 31st March 2016. It has been designed to illustrate how far and wide women migrate across London boroughs when seeking safety from an abusive partner.
+            </p>
+            <p class="uk-margin-large-top uk-margin-large-bottom">
+
+                This site is intended for professionals and others who have an interest in the provision of refuge services in London. It has been created by <a href="about.html#contact" target="blank"> Nissa Ramsay</a>, as part of a Masters in Digital Sociology at Goldsmiths University, in collaboration with <a href="https://www.womensaid.org.uk/" target="blank"> Women's Aid</a> to help inform how services are provided for women seeking refuge in future. To find out more about the project <a href="about.html" target="blank">click here</a>.
+            </p>
+            <hr>
+            <p class="uk-text-center uk-margin-large-top uk-margin-large-bottom">
+                Sroll down to learn more about women's journeys
+            </p>
+            </hr>
+        
+                <h3 class="uk-text-center uk-margin-large-top uk-margin-large-bottom">
+                <a href="#mapjourneys" data-uk-smooth-scroll="{offset: 60}"><i class="uk-icon-chevron-circle-down uk-icon-large"></i></a>
+               </h3>
+            <hr></hr>
+        </div>
+
+        <div id="mapjourneys" class="uk-container uk-container-center uk-width-1-1 uk-margin-large-top">
+
+            <div class="uk-container uk-container-center uk-width-medium-1-1 uk-width-small-1-1 uk-margin">
+                <div data-uk-button-radio>
+                    <button id="all" class="uk-button uk-active uk-width-medium-3-10 uk-width-small-1-1">All journeys</button>
+                    <button id="routesIn"  class="uk-button uk-width-medium-3-10 uk-width-small-1-1">Arriving to access refuge</button>
+                    <button id="routesOut" class="uk-button uk-width-medium-3-10 uk-width-small-1-1">Leaving to seek refuge</button>
+                </div>
+            </div>
+        </div>
+
+    <div class="uk-grid uk-block-muted">
+<!--   <div class="uk-grid uk-block-muted" data-uk-grid> -->
+
+        <div class="uk-width-medium-1-2 uk-width-small-1-1">
+
+            <div id="map">
+                 <p id="tooltip_hover" class="hidden"></p>
+
+            </div>
+
+
+        </div>
+
+        <div class="uk-width-medium-1-2 uk-width-small-1-1 uk-margin-top">
+
+                <h2 class="uk-margin-top uk-margin-small-left " id="infowindowHeading"></h2>
+                <p id="instruction" class="hidden"></p>
+                <p class="uk-margin-left uk-margin-small-right" id="helplineCalls"></p>
+                <p class="uk-margin-left uk-margin-small-right" id="totalRefuge"></p>
+
+                <p class="uk-margin-left uk-margin-small-right " id="arrivalsHeading"></p>
+                <p class="uk-margin-left uk-margin-small-right " id="arrivalsInfo"></p>
+
+                <p class="uk-margin-left uk-margin-small-right " id="departuresHeading"></p>
+                <p class="uk-margin-left uk-margin-small-right " id="departuresInfo"></p>
+
+                <p class="uk-margin-left uk-margin-small-right" id="astrix"></p>
+
+                <p class="uk-margin-small-left uk-margin-small-right uk-margin-bottom uk-margin-top" id="totalRefugeArrivals"></p>
+                <div class="uk-margin-large-left uk-margin-small-right" id="text1"></div>
+                <div class="uk-margin-large-left" id="chart1"></div>
+
+                <div class="uk-margin-large-left uk-margin-small-right" id="text2"></div>
+                <div class="uk-margin-large-left" id="chart2"></div>
+
+
+                <div class="uk-margin-large-left uk-margin-small-right" id="text3"></div>
+                <div class="uk-margin-large-left uk-margin-small-right" id="chart3"></div>
+
+                <div class="uk-margin-large-left uk-margin-small-right" id="text4"></div>
+                <div class="uk-margin-large-left uk-margin-small-right" id="chart4"></div>
+                <p class="uk-margin-small-left uk-margin-small-right" id="astrix2"></p>
+        </div>
+
+    </div>
+
+    <p class="uk-text-left uk-margin-left uk-text-small"><a data-uk-modal="{target:'#alert'}">Map not appearing full size?</a></p>
+
+
+
+        <div id="datadefinitions" class="uk-container uk-container-center uk-width-1-1 uk-margin-top uk-block">
+         
+            <p class="uk-text-center uk-margin-top uk-margin-large-bottom">
+                Sroll down to learn more about this map
+            </p>
+            <div class="uk-container uk-container-center uk-margin-large-top uk-margin-large-bottom">
+                <h3 class="uk-text-center"><a href="#datadefinitions" data-uk-smooth-scroll="{offset: 90}"><i class="uk-icon-chevron-circle-down uk-icon-large"></i></a></h3>
+            </div>
+            <hr></hr>
+            <h1 class="uk-text-center uk-margin-large-top uk-margin-large-bottom">Map Definitions</h1>
+
+                 <div class="uk-grid uk-grid-small tm-grid-truncate uk-text-center uk-margin-large-bottom" data-uk-grid-margin data-uk-grid-match>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                        <a data-uk-modal="{target:'#refugeDefinition'}">Refuge spaces available</a>
+                                    </div>
+                                </div>
+
+                               <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                         <a data-uk-modal="{target:'#ndvhDefinition'}">National Domestic Violence Helpline</a>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                        <a data-uk-modal="{target:'#arrivingDefintion'}">Arriving to access refuge </a>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                          <a data-uk-modal="{target:'#leavingDefinition'}">Leaving to seek refuge</a>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                        <a data-uk-modal="{target:'#migrationDefintion'}">Routes, arrows and circles</a>
+                                    </div>
+                                </div>
+
+                </div>
+            <hr class="uk-margin-large-top"></hr>
+        </div>
+
+
+        <div id="faqs" class="uk-container uk-container-center uk-width-medium-8-10 uk-width-small-1-1 uk-margin-large-top uk-block">
+            
+            <h1 class="uk-text-center uk-margin-top uk-margin-large-bottom">Frequently Asked Questions</h1>
+
+                 <div class="uk-grid uk-grid-small tm-grid-truncate uk-text-center uk-margin-large-bottom" data-uk-grid-margin data-uk-grid-match>
+                                <div class="uk-width-medium-1-1">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                        <a data-uk-modal="{target:'#ownboroughFAQ'}">Why do so few women access a refuge in their own borough?</a>
+                                    </div>
+                                </div>
+
+                               <div class="uk-width-medium-1-1">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                         <a data-uk-modal="{target:'#otherboroughsFAQ'}">Why do women move to so many different boroughs?</a>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-1">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                        <a data-uk-modal="{target:'#numbersInOutFAQ'}">Why are the numbers of women arriving in each borough higher than the number of women leaving? </a>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-1">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                          <a data-uk-modal="{target:'#demandFAQ'}">Do lower numbers of women accessing refuge mean that there is lower demand for them? </a>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-1">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                        <a data-uk-modal="{target:'#spacesFAQ'}">Are there enough refuge spaces to meet demand?</a>
+                                    </div>
+                                </div>
+
+                </div>
+                <hr></hr>
+        </div>
+
+    <div class="uk-container uk-container-center uk-margin-large-top uk-margin-large-bottom ">
+        <h3 class="uk-text-center"><a href="#findings" data-uk-smooth-scroll="{offset: 90}"><i class="uk-icon-chevron-circle-down uk-icon-large"></i></a></h3>
+    </div>
+    <div id="findings" class="uk-container uk-container-center uk-width-medium-8-10 uk-width-small-1-1 uk-margin-large-top uk-block-muted">
+
+        <h1 class="uk-text-center uk-margin-bottom uk-margin-large-top">Analysis</h1>
+        <h2 class="uk-margin-large-top">Women rarely stay in their own borough to seek refuge</h2>
+            <p class="uk-margin-large-top">
+                Women (and their children) are moving out of every London borough to seek refuge in every other London borough. <b>Of the 746 women from London</b> who were placed in a refuge in London in 2015-16, <b>only 51 stayed in their home borough</b> (note that a further 77 women were from London but did not specify exactly where). 
+            </p>
+            <p>
+                This remains true for boroughs with the best refuge provision. For instance, Lambeth, Hackney and Lewisham have more refuge spaces than other boroughs. Lambeth and Hackney also had the highest numbers of women accessing a refuge (closely followed by Lewisham). However, very few women stayed in those boroughs.
+            </p>
+            <p class="uk-margin-large-bottom">
+                Overall, <b>93%</b> of women moving within London to access a refuge move to a different borough.
+            </p>
+
+                <blockquote data-uk-scrollspy="{cls:'uk-animation-slide-right'}">
+                    <p class="uk-text-large">
+                        It is vital that women are able to seek refuge in their locality when it is safe for them to do so, or to move in to another borough if not.
+                    </p>
+                </blockquote>
+
+        <h2 class="uk-margin-large-top">Women's journeys are diverse</h2>
+            <p class="uk-margin-large-top">
+
+                On average in 2015-16, there were journeys from each borough to 12 other London boroughs. <a href="#figure1" data-uk-smooth-scroll="{offset: 90}">Figure 1 </a> shows their diversity, highlighting reciprocal migration patterns between many boroughs.
+            </p>
+            <p>
+
+                Westminster, Hackney, Haringey, Croydon and Lambeth have the most diverse journeys arriving to access a refuge, with women travelling from over 20 boroughs in London to access a refuge. Women also leave those boroughs to more than 15 other London boroughs. 
+                </p>
+                <p class="uk-margin-large-bottom">
+                Barking and Dagenham, Enfield and Croydon, have the most diverse journeys leaving to seek refuge, with women moving to over 19 other boroughs (closely followed by Hillingdon, Brent, Newham, Ealing, Lewisham and Haringey with women leaving to 18 other boroughs). 
+
+                <blockquote class="uk-margin-top uk-margin-bottom" data-uk-scrollspy="{cls:'uk-animation-slide-right'}">
+                    <p class="uk-text-large">
+                        Services need to be provided and funded to allow for diverse migration patterns between boroughs, near and far.
+                    </p>
+                </blockquote>
+            </p>
+
+                <figure id="figure1" class='uk-align-center uk-margin-large-top uk-width-6-10'>
+                    <a href="img/allLondonRoutes.png" data-uk-lightbox title="Figure 1: All migration routes to seek refuge across London">
+                    <img src="img/allLondonRoutes.png" width="700" height="600" alt=""></a>
+                    <figcaption class="uk-text-center uk-text-small">Figure 1: All migration journeys to seek refuge across London</figcaption>
+                </figure>
+            <p>
+
+            </p>
+
+        <h2 class="uk-margin-large-top">Women’s diverse migration patterns extend across the UK</h2>
+            <p class="uk-margin-large-top">
+                Between April 2015 and March 2016, 248 women travelled to London from across the UK to access a refuge. It is important to note that there are also no distinct patterns as to where in the UK they travel, with some coming from the North of England and from as far as Edinburgh. The map above has not illustrated these journeys due to their complexity. Instead, the images in <a href="#figure2" data-uk-smooth-scroll="{offset: 90}">Figure 2 </a> demonstrate the breadth of these journeys from the UK, with very few women from immediate neighbouring boroughs. This remains true for both outer London boroughs and those boroughs with the most women travelling from outside London to access a refuge space.
+            </p>
+
+            <p class="uk-margin-large-bottom">
+                These findings reflect wider academic studies of domestic abuse migration journeys in London and across the UK. For example, <a href="http://csp.sagepub.com/content/35/3/327.abstract" target="blank">Bowstead 2015</a> found that for 10,000 migration journeys to seek refuge in England in 2008-9, over 80% were travelled by only one or two women in a year. Similarly for London, the 746 women who identified the borough they lived in prior to accessing a refuge made a total of 419 different journeys. Of these journeys, over 70% were made by only one or two women a year.
+            </p>
+                <blockquote data-uk-scrollspy="{cls:'uk-animation-slide-right'}">
+                    <p class="uk-text-large">
+                        It is important to recognise that any changes to the provision and funding of services in London will have national implications.
+                    </p>
+                </blockquote>
+                <div id="figure2" class="uk-container uk-container-center uk-margin-large-top uk-margin-large-bottom">
+<!--                 <h3>Figure 1: <br>Migration routes for outer London boroughs and boroughs with high numbers arriving from outside of London</h3> -->
+                <div class="uk-grid uk-grid-width-medium-1-4" data-uk-grid-margin>
+                    <div>
+                        <a href="img/BexleyWeb.png" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Bexley">Bexley
+                            <img src="img/BexleyWeb.png" width="800" height="600" alt="">
+                        </a>
+                    </div>
+                      <div>
+                        <a href="img/CroydonWeb.png" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Croydon">Croydon
+                            <img src="img/CroydonWeb.png" width="800" height="600" alt="">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="img/EnfieldWeb.png" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Enfield">Enfield
+                            <img src="img/EnfieldWeb.png" width="800" height="600" alt="">
+                        </a>
+                    </div>
+                    <div>
+                        <a href="img/WestminsterWeb.png" data-lightbox-type="image" data-uk-lightbox="{group:'group1'}" title="Westminster">Westminster
+                            <img src="img/WestminsterWeb.png" width="800" height="600" alt="">
+                        </a>
+                    </div>
+
+                </div>
+                <h3>Figure 2: Migration routes for outer London boroughs and Westminster with the highest number of arrivals from outside of London (click to enlarge)</h3>
+                </div>
+
+
+         <h2 class="uk-margin-large-top">Demand for refuge exceeds provision across London</h2>
+                       <p class="uk-margin-large-top">
+                In total, there were <b>5399</b> calls to the National Domestic Violence helpline with a recorded location in London (this represents approximately 95% of calls answered by the helpline). The highest numbers of calls to the National Domestic Violence Helpline were recorded from Lambeth, Croydon, Newham, Lewisham and Hackney.  However, given the lack of data for those women accessing refuge space outside of London, it is not possible to conclude whether this corresponds the number of women who subsequently accessed a refuge.
+            </p>
+            <p>
+                Whilst these figures only give an indication of demand for help, information and refuge services, they do highlight that the National Domestic Violence Helpline receives many more requests for refuge spaces than there are spaces available*.
+            </p>
+            <p class="uk-margin-large-bottom">
+                The provision of refuge spaces in London also falls slightly below the <a href="https://1q7dqy2unor827bqjls0c4rn-wpengine.netdna-ssl.com/wp-content/uploads/2015/12/6_-_Successful_Commissioning_Guidance_for_Commissioners.pdf" target="blank" target="blank">  Minimum Standards for Refuge Provision</a>, set by the Council of Europe, which specifies that 1 family should be available for every 10,0000 population. In London, there were <b>812</b> refuge spaces available in May 2016, compared to 854 spaces required to meet the minimum standard. In the UK, there is also an overall 30% shortfall in the spaces required. This is likely to be increasing demand for London refuges and may account for some of the women travelling from outside of London to seek refuge. The Women's Aid annual survey also found that in 2013/14 nearly a third (31%) of referrals to a refuge were subsequently turned away because of a lack of space (data provided by 115 services, noting that women may approach multiple refuges).
+            </p>
+
+
+                <blockquote data-uk-scrollspy="{cls:'uk-animation-slide-right'}">
+                    <p class="uk-text-large">
+                        Further analysis is crucial to determine where additional refuge spaces are most needed.
+                    </p>
+                </blockquote>
+
+            <p class="uk-text-small uk-margin-large-bottom">
+                *The exact numbers were not available at the time of writing this report but requests for spaces have been recorded and analysed by Women’s Aid to draw this conclusion.
+            </p>
+</div>
+
+    </div>
+
+
+    <div id="summary" class="uk-container-center uk-margin-top uk-block uk-block-muted">
+    <div class="uk-container-center uk-margin-top uk-margin-right uk-width-medium-1-1">
+    <h1 class="uk-text-center uk-margin-large-top">Learn More</h1>
+        <p class="uk-text-left uk-text-large uk-margin-large-top uk-text-center" style="colour: #7c8081;">
+            To find out more about this project <a href="about.html" target="blank">click here</a>.
+        </p>
+        <p class="uk-text-left uk-text-large uk-margin-large-top uk-text-center">
+            To find out more about Women's Aid and the research they do <a href="https://www.womensaid.org.uk/research-and-publications/" target="blank">click here</a>.
+        </p>
+    </div>
+
+    <div class="uk-container uk-width-medium-9-10 uk-width-small-1-1 uk-container-center uk-margin-top" style="colour: #7c8081;">
+
+        <p class="uk-text-left uk-text-large uk-margin-large-top"></p>
+
+    </div>
+
+
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////// PPop Up Window - View on another browser Info ///////////////////////////////////////////////////////////////////////-->
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+        <div id="alert" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <h1>Trouble viewing this map</h1>
+                <p>
+                Please note that this map may not display correctly in Internet Explorer (especially if this is an older version). If this map is appearing very small, narrow or thin, please try opening this site in a different browser or on a mobile.
+                </p>
+            </div>
+        </div>
+
+
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////// Pop Up Windows for Data Definitions Section /////////////////////////////////////////////////////////////////////////-->
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+        <div id="refugeDefinition" class="uk-modal refuge">
+            <div class="uk-modal-dialog">
+                <h1>A Refuge Space <a href="" class="uk-modal-close uk-close uk-align-right uk-margin-top uk-margin-right"></a></h1>
+                <p>
+                    A refuge is a house where women and children who have experienced domestic violence can live in safety, with support from specialist-trained staff.
+                </p>
+                <p>
+                    There is no one type of refuge. Some have self-contained flats, whilst others provide private rooms for a woman with her children with other shared communal areas (living room, kitchen, bathrooms). See the <a href="http://www.refuge.org.uk/what-we-do/our-services/refuges/living-in-a-refuge/" target="blank">Refuge Website</a> to find out more.
+                <p>
+                    Women can be placed in a refuge by calling the <a href="https://www.womensaid.org.uk/information-support/helpline/" target="blank">National Domestic Violence Helpline</a>.
+                </p>
+                <p>
+                    The refuge space numbers have been aggregated and provided by Women’s Aid from <a href="https://www.womensaid.org.uk/what-we-do/online-information-directories/" target="blank">UK Refuges Online</a>, the national database of refuge spaces. Further information about refuges can be found on the <a href="https://www.womensaid.org.uk/domestic-abuse-directory/" target="blank"> Refuge Directory</a>)
+                </p>
+                <p>
+                    Please note that these figures change on a daily basis and do not represent the actual number of spaces which are being used or an accurate picture of demand for those spaces. The data was correct as of 1st May 2016 to reflect the end of the financial year reported in this project.
+                </p>
+                </div>
+            </div>
+
+
+        <div id="ndvhDefinition" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <h1>The National Domestic Violence Helpline</h1>
+                <p>
+                    This is a Freephone national phone number (0808 2000 247) which provides help and information, including referring women to emergency safe accommodation (See <a href="https://www.womensaid.org.uk/information-support/helpline/" target="blank">Women's Aid website</a>more information).</p>
+                <p>
+                    The number of calls cited includes approximately 95% of calls answered by the helpline, where the caller has identified the borough they currently live in (it is not always possible to capture a woman's location if they are calling in a crisis situation). There are also a number of other helplines across London and as such, the numbers of calls only provides an indication of demand for this type of service.
+                </p>
+            </div>
+        </div>
+
+
+        <div id="arrivingDefintion" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <h1>Arriving to access refuge</h1>
+                <p>
+                    Each refuge service in London is asked to enter the details of a woman placed in a vacancy, including their home borough and to provide this to Women’s Aid. However, for 269 women between April 2015 and March 2016, some of the data about their original location is missing, not known or not completed correctly. This includes 77 from inside London.
+                </p>
+                <p>
+                    As a result, whilst the total numbers of women arriving in to a borough to seek refuge are accurate, some of their original locations are not known. This means that specific numbers of women seeking refuge within their own borough or from other London boroughs are likely to be higher.
+                </p>
+            </div>
+        </div>
+
+        <div id="leavingDefinition" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <h1>Leaving to seek refuge</h1>
+                <p>
+                    Each refuge service in London is asked to enter the details of a woman placed in a vacancy, including their home borough and to provide this to Women’s Aid. However, for 169 women who moved in to another London borough between April 2015 and March 2016, some of the data about their original location is missing, not known or not completed correctly.
+                </p>
+                <p>
+                    There is also no data currently available or included for those who travel outside of London to access refuge.
+                </p>
+                <p>
+                    As a result, the total number of women leaving a borough to seek refuge will likely be much higher.
+                </p>
+            </div>
+        </div>
+
+        <div id="migrationDefintion" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <h1>Routes, arrows and circles</h1>
+                <p>
+
+                    The circles do not represent the locations of the refuge services or the homes of women accessing them. Instead, they represent a geographically calculated location for each borough (<a href="https://www.doogal.co.uk/AdministrativeAreas.php" target="blank">taken from here</a>). For the routes leaving each borough (in blue), the longitude has been adjusted (by +0.025 degrees) for clarity.
+                </p>
+                <p>
+                    The arrows represent the direction of the journey. The timing (when they appear) and speed (how long they take to travel) reflect the distance between the start and end points. The further away the origin, the longer the arrow takes to appear and to travel to the destination. They fade away as they get close to the location (code <a href="http://www.tnoda.com/blog/2014-04-02" target="blank">adapted from here</a>)
+                </p>
+            </div>
+        </div>
+
+
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////// Pop Up Windows for Frequently Asked Questions section ///////////////////////////////////////////////////////////////-->
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+        <div id="ownboroughFAQ" class="uk-modal refuge">
+            <div class="uk-modal-dialog">
+            <h1><a class="uk-modal-close uk-close uk-align-right uk-margin-top uk-margin-right"></a></h1>
+
+                <h1>
+                    Why do so few women access a refuge in their own borough?
+                </h1>
+                <p class="uk-margin-top">
+                    The primary concern when placing a woman in a refuge is the need to keep them safe, which may not be possible if they live in the same local area as the perpetrator. Those women who are placed in their own borough may also later need to move on to another refuge to ensure their safety.
+                </p>
+                <p>
+                    Each woman's circumstances and subsequent journey (and the reasons for making this) are unique and there are many reasons why women may need or want to leave or stay in their own borough to access a refuge space.
+                </p>
+                <p>
+                    Factors may include refuge availability at the time of fleeing an abusive partner (refuge spaces cannot be booked in advance and are often oversubscribed), the need for specialist services and their availability (such as mental health support) and personal requirements (such as rooms to accommodate children, connections to friends and family) or the likelihood of being able to find new accommodation.
+                </p>
+
+            </div>
+        </div>
+
+
+        <div id="otherboroughsFAQ" class="uk-modal">
+            <div class="uk-modal-dialog">
+            <h1><a class="uk-modal-close uk-close uk-align-right uk-margin-top uk-margin-right"></a></h1>
+
+                <h1>Why do women move to so many different boroughs?</h1>
+                <p>
+                    The primary concern when placing a woman in a refuge is the need to keep them safe, which may not be possible if they live in the same local area as the perpetrator.
+                </p>
+                <p>
+                    The borough a woman moves to in order to access a refuge could depend on choice or necessity or both. Contributing factors are likely to include refuge availability at the time of fleeing an abusive partner (refuge spaces cannot be booked in advance and are often oversubscribed), the need for specialist services and their availability (such as mental health support), personal requirements (such as rooms to accommodate children), transport to work, connections to friends, family and work in the area, knowledge of an area or the chance to secure move on accommodation from that borough. </p>
+            </div>
+        </div>
+
+
+        <div id="numbersInOutFAQ" class="uk-modal">
+            <div class="uk-modal-dialog">
+            <h1><a class="uk-modal-close uk-close uk-align-right uk-margin-top uk-margin-right"></a></h1>
+
+                <h1>Why are the numbers of women arriving in each borough higher than the number of women leaving?</h1>
+                <p>
+                    Firstly, the number of refuge spaces available in each borough is different. Some boroughs also have more than one refuge, providing specialist and general refuge services.
+                </p>
+                <p>
+                    Secondly, there is currently no data for the numbers of women leaving London to access a refuge space. Given wider research and the migration patterns identified in this project, it is likely that more women will be leaving each borough to access a refuge outside of London.
+                </p>
+                <p>
+                    As a result, the total number of women leaving a borough to seek refuge should be much higher than is currently represented on this map.
+                </p>
+            </div>
+        </div>
+
+        <div id="demandFAQ" class="uk-modal">
+            <div class="uk-modal-dialog">
+            <h1><a class="uk-modal-close uk-close uk-align-right uk-margin-top uk-margin-right"></a></h1>
+
+                <h1>Do lower numbers of women accessing refuge mean that there is lower demand for them? </h1>
+                <p>
+                    For those boroughs with lower numbers of women accessing spaces, compared to the spaces available, it does not follow that there is less demand for vacancies.
+                </p>
+                <p>
+                    The data mapped only includes new women placed in a borough in April 2015 – March 2016. It is likely that women were already staying in these prior to April 2015.
+                </p>
+                <p>
+                    Furthermore, the average length of stay in a refuge varies considerably. Typically, those women who stay longer in refuge accommodation do so due to difficulties finding suitable housing to move onto.
+                </p>
+
+            </div>
+        </div>
+
+        <div id="spacesFAQ" class="uk-modal">
+            <div class="uk-modal-dialog">
+            <h1><a class="uk-modal-close uk-close uk-align-right uk-margin-top uk-margin-right"></a></h1>
+
+                <h1>Are there enough refuge spaces to meet demand?</h1>
+                <p>
+                    The demand for refuge spaces is higher than the availability of refuge spaces. The National Domestic Violence Helpline receives many more requests for spaces than the spaces available.
+                </p>
+                <p>
+                    The <a href="https://1q7dqy2unor827bqjls0c4rn-wpengine.netdna-ssl.com/wp-content/uploads/2015/10/Womens-Aid-annual-survey-report-2014.pdf" target="blank">Women's Aid 2014 Annual Survey </a>reported that nearly a third (31%) of referrals to refuges were turned away because of a lack of space (data provided by 115 services across the UK).
+                </p>
+                <p>
+                    The numbers of refuge spaces in London almost meet the <a href="https://www.coe.int/t/dg2/equality/domesticviolencecampaign/Source/EG-VAW-CONF(2007)Study%20rev.en.pdf" target="blank">Council or Europe minimum standards</a>, which specifies that 1 family space should be available for every 10,0000 population. In London, there were 812 refuge spaces available in May 2016, compared to 854 minimum spaces required (<a href="http://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/bulletins/annualmidyearpopulationestimates/2015-06-25" target="blank">ONS 2014 Population data</a>).
+                </p>
+                <p>
+                    More spaces are required in London, particularly given the numbers arriving to seek refuge from across the UK.
+                </p>
+
+            </div>
+        </div>
+
+
+
+
+
+<!-- Arrow to top at the bottom of the page  -->
+
+    <div class="uk-wdith-1-1 uk-margin-top uk-margin-right uk-margin-bottom">
+        <h3 class="uk-text-center"><a href="#intro" data-uk-smooth-scroll><i class="uk-icon-chevron-circle-up uk-icon-large"></i></a></h3>
+        <p class="uk-text-center">To the top</p>
+    </div>
+
+
+<!-- Load the Map  -->
+    <script type="text/javascript" src="lib/map.js"></script>
+</body>
+</html>
