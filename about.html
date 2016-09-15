@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <title>Domestic Abuse Migration</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content=" by Nissa Ramsay. August 2016." />
+    <meta name="Keywords" content="Data visualisation, map, domestic abuse, d3, Women's Aid, migration, London" />
+    <link rel="shortcut icon" href="img/londonthumbnail.jpg"/>
+    <meta name="author" content="Nissa Ramsay" />
+
+    <script type="text/javascript" src="lib/jquery-3.0.0.min.js"></script>
+
+<!-- uikit -->
+<!-- Note, load jquery first, always include a css and js for each component used, .min and .almost-flat -->
+
+    <!-- CSS -->
+    <link type="text/css" rel="stylesheet" href="lib/uikit-2.26.3/css/uikit.almost-flat.css" />
+    <link type="text/css" rel="stylesheet" href="lib/uikit-2.26.3/css/components/sticky.almost-flat.min.css" />
+    <link type="text/css" rel="stylesheet" href="lib/main.css"/>
+
+
+    <!-- JS -->
+    <script type="text/javascript" src="lib/uikit-2.26.3/js/uikit.min.js"></script>
+    <script type="text/javascript" src="lib/uikit-2.26.3/js/components/sticky.min.js"></script>
+
+<!-- D3 scripts -->
+    <script type="text/javascript" src='lib/d3-4.1.0/d3.min.js' charset="utf-8"></script>
+    <script type="text/javascript" src='lib/d3-4.1.0/d3.v3.min.js' charset="utf-8"></script>
+
+    <script type="text/javascript" src='lib/topojson.v1.min.js'></script>
+    <script type="text/javascript" src='lib/queue.v1.min.js'></script>
+
+</head>
+<body>
+<!-- Navigation menu - for large screen -->
+    <nav class="uk-navbar" data-uk-sticky="{clsactive: 'uk-navbar-attached', top: -100, animation: 'uk-animation-slide-top'}"> 
+        <div class="uk-navbar-flip">
+            <ul class="uk-navbar-nav uk-hidden-small" data-uk-scrollspy-nav="{closest: 'li', smoothscroll: {offset: 50}}">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#backgound">Background</a></li>
+                <li><a href="#data">Data</a></li>
+                <li><a href="#datadefinitions">Map definitions</a></li>
+                <li><a href="#references">References</a></li>
+            </ul>
+        <a href="#offcanvas" class="uk-navbar-toggle uk-hidden-medium uk-hidden-large" data-uk-offcanvas></a>
+
+     </div>
+    </nav>
+
+ <!--    Navigation menu - for small screen -->
+
+    <div id="offcanvas" class="uk-offcanvas">
+        <div class="uk-offcanvas-bar">
+            <ul class="uk-nav uk-nav-offcanvas" >
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#backgound">Background</a></li>
+                <li><a href="#data">Data</a></li>
+                <li><a href="#datadefinitions">Map definitions</a></li>
+                  <li><a href="#references">References</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+<!--  Navigation menu for exit this site -->
+    <a id="exitnav" data-uk-sticky="{animation: 'uk-animation-slide-top'}" href="http://www.bbc.co.uk/">EXIT</a>
+
+    <div class="uk-panel uk-width-1-1">
+        <img src="img/streets2.jpg" width="100%">
+        <figcaption class="uk-overlay-panel uk-overlay-backgound uk-flex uk-flex-center uk-flex-middle uk-text-center">
+                <div class="uk-flex-middle uk-text-center">
+                    <h1>Domestic Abuse Migration</h1>
+                    <h2>About this project</h2>
+                    <h3> <a href="#start" data-uk-smooth-scroll><i class="uk-icon-chevron-circle-down uk-icon-large"></i></a></h3>
+                </div>
+            </figcaption>
+        </img>
+    </div>
+
+
+
+    <div id="start" class="uk-container uk-container-center uk-width-medium-8-10 uk-width-small-1-1">
+
+         <div class="uk-panel uk-panel-box uk-width-medium-7-10 uk-margin-large-top uk-container-center" style="background: #d8de3a;">
+                <p>If you need urgent help related to domestic abuse please call the National Domestic Violence helpline on <b>0808 2000 247</b> and <a href="http://www.bbc.co.uk/">click here</a> to leave this site (or use the exit button).</p>
+        </div>
+
+        <h1 id="backgound" class="uk-text-center uk-margin-large-top uk-margin-large-bottom">Background</h1>
+        <h2 id="contact" class="uk-margin-large-top">
+        Who is behind this project and how can I get in touch?
+        </h2>
+        <p class="uk-margin-top">This map has been created by Nissa Ramsay, as part of a Masters in Digital Sociology at Goldsmiths University, in collaboration with <a href="https://www.womensaid.org.uk" target="blank">Women’s Aid Federation England</a>. </p>
+        <p>
+        To contact Women's Aid please visit their <a href="https://www.womensaid.org.uk/about-us/contact/" target="blank">'Contact Us'</a> page.You can also find out more about support services available as well as research and statistics relating to domestic abuse on the  <a href="https://www.womensaid.org.uk/about-us/" target="blank">Women's Aid website</a>.
+        </p>
+        <p>
+        For further information about this specific project you can also contact <a href="mailto:nissaramsay@googlemail.com">Nissa Ramsay</a>
+        </p>
+        
+        <h2 class="uk-margin-large-top">
+        Can I copy or share the maps?
+        </h2>
+        <p class="uk-margin-top">
+        Yes. This map has been designed, to the best of our knowledge, to ensure the anonymity and confidentiality of the data provided. Please share the map with all those who may be interested.
+        </p>
+        <h2 class="uk-margin-large-top">
+        Can I find out more about how the maps are made or re-use the code?
+        </h2>
+        <p class="uk-margin-top">
+        These maps have been created using <a href="https://d3js.org/" target="blank">D3.js</a>, a JavaScript library for manipulating documents based on data.All code can be found <a href="https://github.com/nrams002" target="blank">on Github</a>. If you re-use the data in this report in anyway please pay close attention to the <a href="#datadefinitions" data-uk-smooth-scroll>map notes and data definitions</a> and contact <a href="https://www.womensaid.org.uk/about-us/contact/" target="blank">Women's Aid</a> to ensure your interpretation is correct in advance of any publication.
+        </p>
+        
+        <h2 class="uk-margin-large-top" id="data">
+        Where does the data come from?
+        </h2>
+        <p>
+        The data has been collected from a range of sources (see <a href="#datadefinitions" data-uk-smooth-scroll>map notes and data definitions</a> below). It has been provided anonymously and at an aggregate level for this project by Women’s Aid, who have also overseen how this data is represented within the visualisations and associated analysis and interpretation. If you have any concerns at all about the data or its use, please contact <a href="mailto:info@womensaid.org.uk">Women's Aid</a> in the first instance.
+        </p>
+        <h2 class="uk-margin-large-top">
+        What efforts have been taken to protect womens' anonymity and the confidential locations of refuges?
+        </h2>
+        <p>
+        At no point in the production of this project has any data been shared or analysed which includes any personally identifiable information or any sensitive location based information. All locations and routes refer to the calculated centres of boroughs and the journeys between them at an aggregate level. They do not refer to the locations of refuges or the actual journeys women make (from their home to a refuge). For further detail please see the <a href="#datadefinitions" data-uk-smooth-scroll>map notes and data definitions</a>.
+        </p>
+        <h2 class="uk-margin-large-top">
+        Are there any risks in visualising this data?
+        </h2>
+        <p>
+        To the best of our knowledge, this map has been designed to ensure the this project maintains the anonymity, sensitivity, integrity and accuracy of their data and it’s interpretation for all those implicated by it, including their members and the women they protect. The data is complicated and only provides a partial picture of the difficult circumstances women find themselves in and the context of providing services to keep them safe. The <a href="#datadefinitions" data-uk-smooth-scroll>map definitions</a> and the analysis within this site have been composed to mitigate any risks of the data being misinterpreted.
+        </p>
+
+    </div>
+
+        <div class="uk-container uk-container-center uk-width-1-1 uk-margin-top uk-block">
+            <h2 id="datadefinitions" class="uk-text-center uk-margin-top uk-margin-large-bottom">Map definitions</h2>
+
+            <div class="uk-grid uk-grid-small uk-container-center uk-text-center uk-margin-large-top uk-width-medium-8-10 uk-width-small-1-1" data-uk-grid-match="{target:'.uk-panel'}">
+                             <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                        <a data-uk-modal="{target:'#refugeDefinition'}">Refuge spaces available</a>
+                                    </div>
+                                </div>
+
+                               <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                         <a data-uk-modal="{target:'#ndvhDefinition'}">National Domestic Violence Helpline</a>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                        <a data-uk-modal="{target:'#arrivingDefintion'}">Arriving to access refuge in London</a>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                          <a data-uk-modal="{target:'#leavingDefinition'}">Leaving to seek refuge in London</a>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-5">
+                                    <div class="uk-panel uk-panel-box uk-panel-box-primary uk-panel-hover">
+                                        <a data-uk-modal="{target:'#migrationDefintion'}">Locations (circles), movement (arrows)</a>
+                                    </div>
+                                </div>
+
+                </div>
+        </div>
+
+
+    <div class="uk-container uk-container-center uk-width-medium-8-10 uk-width-small-1-1 uk-margin-large-top">
+
+        <h2 class="uk-margin-large-top">
+        What academic literature and rationale underpins this project?
+        </h2>
+        <p>
+        This is a Digital Sociology project, combining sociological thinking with emerging technologies. It is primarily technical in nature and has focused on identifying the most effective ways to visualise journeys spatially in order to both communicate their complexity and yet ensure they remain intelligible, as well as considering how interaction and animation within geographic visualisation can help audiences exlore data and in doing so, interpret specific messages. The map, code and this website are the output of this project, produced as a form of 'public' sociology.
+
+        </p>
+        <p>
+        This project draws upon previous studies of domestic abuse migration which adopt mixed-methods approaches, including Geographical Information Systems (GIS), to analyse and visualise womens' journeys. It also differs greatly, in that it's focus is to communicate that women travel from every borough to every borough in London to seek refuge. For this reason, this project has been undertaken in collaboration with Women's Aid, who have observed the same patterns in their data for many years and have extensive experience in the field of domestic abuse. This project would not have been possible without their enthusiasm and expertise. 
+        </p>
+        <p>
+        
+        </p>
+        <h2 class="uk-margin-large-top" id="references">
+        References
+        </h2>
+        <p>Specific references used within this website include:
+            <ul>
+                <li>Coy, M., Kelly, L. and Foord, J. (2009) Map of Gaps 2: The Postcode Lottery of Violence Against Women Support Services in Britain. London: End Violence Against Women and Equality and Human Rights Commission.
+                <a href="http://www.refuge.org.uk/files/Map-of-Gapsreport-2009.pdf" target="blank">Available online</a>.
+                </li>
+                <li> Council of Europe (2008) Combating violence against women: minimum standards for support services, Strasbourg.
+                    <a href="https://1q7dqy2unor827bqjls0c4rn-wpengine.netdna-ssl.com/wp-content/uploads/2015/12/6_-_Successful_Commissioning_Guidance_for_Commissioners.pdf" target="blank" target="blank"> Available online</a>.
+                </li>
+                <li> Coy, M., Kelly, L., Foord, J. and Bowstead, J. (2011) Roads to Nowhere? Mapping Violence Against Women Services. <a href="http://archive.londonmet.ac.uk/www.citiesinstitute.org/fms/MRSite/Research/cities/Publications%202011/Coy%20et%20al_%20(2011).pdf" target="blank">Available online.</a></li>
+
+                <li> Bowstead, J.C.(2015) Why women’s domestic violence refuges are not local services. Critical social Policy 35 (3), pp. 327-349 <a href="http://csp.sagepub.com/content/35/3/327.abstract" target="blank">Available online</a>.</li>
+
+                <li> Women's Aid Annual Survey 2014. <a href="https://1q7dqy2unor827bqjls0c4rn-wpengine.netdna-ssl.com/wp-content/uploads/2015/10/Womens-Aid-annual-survey-report-2014.pdf" target="blank">Available online</a>.</li>
+            </ul>
+        </p>
+        <p>
+            A full list of references used in creating this project and writing a disertation can be found <a href="https://docs.google.com/document/d/1jnJvTeAaDR7gkTVF694NSX8puIIgRuF8AnXCXUJtI8M/edit?usp=sharing" target="blank">online here</a>
+        </p>
+        <h2>
+        Acknowledgements
+        </h2>
+        <p>
+        Special acknowledgements for this project go to Sarah Davidge and her team at Women's Aid for their growing enthusiasm for maps and merticulous dedication to the data they care for, alongside <a href="http://www.gold.ac.uk/computing/people/freeman-andy/" target="blank">Andy Freeman</a> and <a href="http://www.gold.ac.uk/sociology/staff/murthy-dhiraj/" target="blank">Dhiraj Murthy</a> at the <a href="http://www.gold.ac.uk" target="blank">University of Goldsmiths</a> who took their time to supervise this project.
+        </p>
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="uk-wdith-1-1 uk-margin-top uk-margin-right uk-margin-bottom">
+        <h3 class="uk-text-center"><a href="#intro" data-uk-smooth-scroll><i class="uk-icon-chevron-circle-up uk-icon-large"></i></a></h3>
+    </div>
+
+
+<!-- <a data-uk-modal="{target:'.refuge'}"> refuge</a> -->
+        <a href=".refugeDefinition" data-uk-modal></a>
+            <div id="refugeDefinition" class="uk-modal refuge">
+                <div class="uk-modal-dialog">
+                    <h1>A Refuge Space <a href="" class="uk-modal-close uk-close uk-align-right uk-margin-top uk-margin-right"></a></h1>
+                <p>
+                    A refuge provides a safe house when fleeing domestic abuse, with support from specialist-trained staff. A refuge space (sometimes referred to as a ‘bed space’) is a room, which varies in size, with some designated for a single woman, others to accommodate a woman and her children. Women can be placed in a refuge by calling the <a href="https://www.womensaid.org.uk/information-support/helpline/" target="blank">National Domestic Violence Helpline</a>. 
+                </p>
+                <p>
+                    The refuge space numbers have been aggregated and provided by Women’s Aid from <a href="https://www.womensaid.org.uk/what-we-do/online-information-directories/" target="blank">UK Refuges Online</a>, the national database of refuge spaces. Further information about refuge spaces can be found on the <a href="https://www.womensaid.org.uk/domestic-abuse-directory/" target="blank"> Refuge Directory</a>)
+                </p>
+                <p>
+                    Please note that these figures change on a daily basis and do not represent the actual number of spaces which are being used or an accurate picture of demand for those spaces. The data was correct as of 1st May 2016 to reflect the end of the financial year reported in this project. 
+                </p>
+                </div>
+            </div>
+
+
+        <div id="ndvhDefinition" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <h1>The National Domestic Violence Helpline</h1>
+                <p>
+                    This is a Freephone national phone number (0808 2000 247) which provides help and information, including referring women to emergency safe accommodation (See <a href="https://www.womensaid.org.uk/information-support/helpline/" target="blank">Women's Aid website</a>more information).</p>
+                <p>
+                    The number of calls cited includes approximately 95% of calls answered by the helpline, where the caller has identified the borough they currently live in (it is not always possible to capture a woman's location if they are calling in a crisis situation). There are also a number of other helplines across London and as such, the numbers of calls only provides an indication of demand for this type of service.
+                </p>   
+            </div>
+        </div>
+
+
+        <div id="arrivingDefintion" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <h1>Arriving to access refuge</h1>
+                <p>
+                    Each refuge service in London is asked to enter the details of a woman placed in a vacancy, including their home borough and to provide this to Women’s Aid. However, for 269 women between April 2015 and March 2016, some of the data about their original location is missing, not known or not completed correctly. This includes 77 from inside London. 
+                </p>
+                <p>
+                    As a result, whilst the total numbers of women arriving in to a borough to seek refuge are accurate, some of their original locations are not known. This means that specific numbers of women seeking refuge within their own borough or from other London boroughs are likely to be higher. 
+                </p>   
+            </div>
+        </div>
+
+        <div id="leavingDefinition" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <h1>Leaving to seek refuge</h1>
+                <p>
+                    Each refuge service in London is asked to enter the details of a woman placed in a vacancy, including their home borough and to provide this to Women’s Aid. However, for 169 women who moved in to another London borough between April 2015 and March 2016, some of the data about their original location is missing, not known or not completed correctly.
+                </p>
+                <p>
+                    It is important to note that this project has not included data for the numbers of women leaving London to access a refuge space. However, some women will of course leave London to access refuge elsewhere in the UK. This is evidenced by <a href="http://csp.sagepub.com/content/35/3/327.abstract" target="blank">Bowstead 2015 </a> whose analysis of 10,000 refuge journeys concluded that there was an overall net migration of women leaving London. 
+                </p>
+                <p>
+                    As a result, the numbers of women leaving each borough to access refuge will most certainly be higer than they appear to be here. 
+                </p>
+            </div>
+        </div>
+    
+        <div id="migrationDefintion" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <h1>Locations (circles) and movement (arrows)</h1>
+                <p>
+                
+                    The circles do not represent the locations of the refuge services or the homes of women accessing them. Instead, they represent a geographically calculated location for each borough (<a href="https://www.doogal.co.uk/AdministrativeAreas.php" target="blank">taken from here</a>). For the routes leaving each borough (in blue), the longitude has been adjusted (by +0.025 degrees) for clarity. 
+                </p>
+                <p>
+                    The arrows represent the direction of the journey. The timing (when they appear) and speed (how long they take to travel) reflect the distance between the start and end points. The further away the origin, the longer the arrow takes to appear and to travel to the destination. They fade away as they get close to the location (code <a href="http://www.tnoda.com/blog/2014-04-02" target="blank">adapted from here</a>)
+                </p>   
+            </div>
+        </div>
+
+</body>
+</html>
