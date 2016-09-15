@@ -4,23 +4,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,600");
 @import url("http://fonts.googleapis.com/css?family=Lato:300,400,500,900");
 
- html {
-  /* 1 */
- /* font: normal 20px / 34px ‘EB ‘Garamond, sans-serif;*/
-  /*font: normal 20px / 34px 'Lato' sans-serif;*/
-    color: #7c8081;
-    font-family: 'Lato', sans-serif;
-    font-size: 15pt;
-    font-weight: 300;
-    letter-spacing: 0.025em;
-    line-height: 1.75em;
-  /* 2 */
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  /* 3 */
-  background: #ffffff;
-  color: #444444;
-}
 
 /*! UIkit 2.26.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
@@ -29,18 +12,20 @@
 /*
  * 1. Normalize default `font-family` and set `font-size` to support `rem` units
  * 2. Prevents iOS text size adjust after orientation change, without disabling user zoom
- * 3. Style
+ * 3. outline-style:
  */
-/*html {*/
+html {
   /* 1 */
-/*  font: normal 18px / 30px "Open Sans", Helvetica, Arial, sans-serif;*/
+  font: normal 18px / 32px 'Lato', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.025em;
   /* 2 */
-/*  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;*/
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
   /* 3 */
-/*  background: #ffffff;
+  background: #ffffff;
   color: #444444;
-}*/
+}
 
 /*
  * Removes default margin.
@@ -173,6 +158,8 @@ img,
 svg,
 video {
   vertical-align: middle;
+  width: 100%;
+  background: none;
 }
 /*
  * Responsiveness
@@ -6378,8 +6365,8 @@ a.uk-thumbnail:focus {
 .uk-overlay-panel h5,
 .uk-overlay-panel h6 {
   color: inherit;
-  text-shadow: 1px 2px grey;
-  font-family: 'Roboto', sans-serif;
+  text-shadow: 2px 1px black;
+  font-family: "Helvetica Neue", sans-serif;
 }
 
 
