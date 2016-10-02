@@ -158,8 +158,6 @@ img,
 svg,
 video {
   vertical-align: middle;
-  width: 100%;
-  background: none;
 }
 /*
  * Responsiveness
@@ -2098,7 +2096,7 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   box-sizing: border-box;
   text-decoration: none;
   /* 1 */
-  height: 41px;
+  height: 45px;
   padding: 0 15px;
   line-height: 40px;
   /* 2 */
